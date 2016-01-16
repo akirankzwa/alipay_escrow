@@ -3,6 +3,7 @@ require 'openssl'
 require 'base64'
 require 'active_support'
 require 'active_support/core_ext'
+require 'httparty'
 
 module AlipayEscrow
   class Base
@@ -25,7 +26,28 @@ module AlipayEscrow
       "#{GATEWAY}#{options.to_query}"
     end
 
+    def verify
+      signature_verify && notification_verify
+    end
+
     private
+
+    def signature_verify
+      params.delete('sign_type')
+      signature = params.delete('sign')
+      data = params.sort.map { |item| item.join('=') }.join('&')
+      rsa = OpenSSL::PKey::RSA.new(key)
+      rsa.verify('sha1', Base64.strict_decode64(signature), data)
+    end
+
+    def notification_verify
+      query_params = {
+        'service' => 'notify_verify',
+        'partner' => partner_id,
+        'notify_id' => params['notify_id']
+      }
+      HTTParty.get("#{GATEWAY}#{query_params.to_query}")
+    end
 
     def payment_params
       {
