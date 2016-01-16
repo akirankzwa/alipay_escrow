@@ -9,6 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Akira Nakazawa"]
   spec.email         = ["nakazawa.akira@gmail.com"]
 
+  spec.summary       = %q{A Ruby Interface to Alipay Payment Gateway. Unofficial.}
   spec.description   = %q{A Ruby Interface to Alipay Payment Gateway. Unofficial.}
   spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = "MIT"
