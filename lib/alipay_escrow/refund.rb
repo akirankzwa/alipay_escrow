@@ -11,7 +11,7 @@ module AlipayEscrow
 
     def refund_params
       {
-        batch_no: 'TODO',
+        batch_no: Time.now.to_formatted_s(:number) + Time.now.nsec.to_s,
         notify_url: params[:notify_url],
         service: 'refund_fastpay_by_platform_pwd',
         partner: partner_id,
