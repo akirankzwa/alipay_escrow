@@ -1,6 +1,6 @@
 # AlipayEscrow
 
-AlipayEscrow is a Ruby Interface to Alipay Payment Gateway. It's unofficial. It supports:
+AlipayEscrow is a Ruby Interface to Alipay Payment Gateway. Uunofficial. It supports:
 
 * create_direct_pay_by_user
 * refund_fastpay_by_platform_pwd
@@ -41,7 +41,16 @@ create_direct_pay_by_user:
 
 refund_fastpay_by_platform_pwd:
 
-    $
+    $ pid = 'YOUR PARTNER ID'
+    $ key = File.read('YOUR RSA PRIVATE KEY')
+    $ params # => {
+    $   'notify_url' => 'NOTIFY URL',
+    $   'trade_no'   => 'TRADE NO',
+    $   'amount'     => '2900',
+    $   'reason'     => 'refund reason'
+    $ }
+    $ escrow = AlipayEscrow::Refund.new(params, key, pid)
+    $ escrow.refund_url # => https://mapi.alipay.com/gateway.do?_input_charset=utf-8&batch_no=540460171869518393124404&batch_num=1&detail_data=20160114...%5E2900%5Erefund+reason&notify_url=https%3A%2F%2Fexample.com%2Falipay%2Fasync_notify&partner=...&refund_date=2016-01-21+19%3A21%3A30&seller_user_id=...&service=refund_fastpay_by_platform_pwd&sign=TRlEoMVu2Dyj...&sign_type=RSA
 
 notify_verify:
 
