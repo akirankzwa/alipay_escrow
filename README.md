@@ -1,8 +1,11 @@
 # AlipayEscrow
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/alipay_escrow`. To experiment with that code, run `bin/console` for an interactive prompt.
+AlipayEscrow is a Ruby Interface to Alipay Payment Gateway. It's unofficial. It supports:
 
-TODO: Delete this and the text above, and describe your gem
+* create_direct_pay_by_user
+* refund_fastpay_by_platform_pwd
+* notify_verify
+* RSA, ~~DSA~~, ~~MD5~~
 
 ## Installation
 
@@ -22,13 +25,25 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+create_direct_pay_by_user:
 
-## Development
+    $ pid = 'YOUR PARTNER ID'
+    $ key = File.read('YOUR RSA PRIVATE KEY')
+    $ params = {
+    $   trade_no: 'TRANSACTION ID',
+    $   subject:  'SUBJECT',
+    $   amount:   'TOTAL PRICE',
+    $   return_url: 'RETURN URL',
+    $   notify_url: 'NOTIFY URL'
+    $ }
+    $ escrow = AlipayEscrow::Payment.new(params, key, pid)
+    $ escrow.payment_url #=> https://mapi.alipay.com/gateway.do?_input_charset=utf-8&notify_url=http%3A%2F%2Fexample.comn%2F&out_trade_no=20160121173854779843000&partner=...&payment_type=1&return_url=https%3A%2F%2Fexample.com%2Falipay%2Fasync_notify&seller_id=...&service=create_direct_pay_by_user&sign=...%3D&sign_type=RSA&subject=iPhone6S&total_fee=2900
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+refund_fastpay_by_platform_pwd:
+    $
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+notify_verify:
+    $
 
 ## Contributing
 
@@ -38,4 +53,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
