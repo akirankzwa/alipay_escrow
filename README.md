@@ -37,13 +37,29 @@ create_direct_pay_by_user:
     $   notify_url: 'NOTIFY URL'
     $ }
     $ escrow = AlipayEscrow::Payment.new(params, key, pid)
-    $ escrow.payment_url #=> https://mapi.alipay.com/gateway.do?_input_charset=utf-8&notify_url=http%3A%2F%2Fexample.comn%2F&out_trade_no=20160121173854779843000&partner=...&payment_type=1&return_url=https%3A%2F%2Fexample.com%2Falipay%2Fasync_notify&seller_id=...&service=create_direct_pay_by_user&sign=...%3D&sign_type=RSA&subject=iPhone6S&total_fee=2900
+    $ escrow.payment_url # => https://mapi.alipay.com/gateway.do?_input_charset=utf-8&notify_url=http%3A%2F%2Fexample.comn%2F&out_trade_no=20160121173854779843000&partner=...&payment_type=1&return_url=https%3A%2F%2Fexample.com%2Falipay%2Fasync_notify&seller_id=...&service=create_direct_pay_by_user&sign=...%3D&sign_type=RSA&subject=iPhone6S&total_fee=2900
 
 refund_fastpay_by_platform_pwd:
+
     $
 
 notify_verify:
-    $
+
+    # POST params from Alipay
+    $ params # => {
+    $   "sign"           => "Znkt3YzO2kmf...",
+    $   "result_details" => "20160120...^2900^SUCCESS",
+    $   "notify_time"    => "2016-01-21 12:14:07",
+    $   "sign_type"      => "RSA",
+    $   "notify_type"    => "batch_refund_notify",
+    $   "notify_id"      => "1d8e3ad3164...",
+    $   "batch_no"       => "20160121121...",
+    $   "success_num"    => "1"
+    $ }
+    $ pid = 'YOUR PARTNER ID'
+    $ key = File.read('ALIPAY RSA PUBLIC KEY')
+    $ escrow = AlipayEscrow::Refund.new(params, key, pid)
+    $ escrow.verified? # => true/false
 
 ## Contributing
 
