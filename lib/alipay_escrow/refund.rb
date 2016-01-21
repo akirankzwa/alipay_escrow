@@ -18,7 +18,8 @@ module AlipayEscrow
         seller_user_id: partner_id,
         refund_date: Time.now.strftime('%F %T'),
         batch_num: 1,
-        detail_data: "#{params['trade_no']}^#{params['amount']}^#{params['reaso']}"
+        detail_data: "#{params['trade_no']}^#{params['amount']}^#{params['reason']}",
+        _input_charset: 'utf-8'
       }
     end
   end
